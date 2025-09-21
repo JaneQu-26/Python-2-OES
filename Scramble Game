@@ -1,0 +1,28 @@
+words = ["hello"]
+scram_words = ["lehol"]
+word = words[0]
+scrambled = scram_words[0]
+print("Here is your scarambled word:")
+print(scrambled)
+
+flag = True
+while flag:
+    guess = input("what is your guess?")
+    
+    if guess == words[0]:
+        flag = False
+    else:
+        print("sorry thats was wrong.")
+        hint = input("Do you want a hint? (y/n):")
+        if hint.lower() == "y":
+            find_letter = input("which letter do you want me to reveal? ")
+            idx = word.index(find_letter)
+            print(f"the letter {find_letter.upper()} is in the {idx+1} place")
+            graphic = []
+            for i in range(len(word)):
+                if idx == i:
+                    graphic.append(find_letter.upper()+" ")
+                else:
+                    graphic.append("_ ")
+            print("".join(graphic))
+print("congradulations you got the word!")
