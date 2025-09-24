@@ -1,28 +1,46 @@
-words = ["hello"]
-scram_words = ["lehol"]
-word = words[0]
-scrambled = scram_words[0]
-print("Here is your scarambled word:")
-print(scrambled)
 
+import random as rm
+words = []
+with open("scramble\words.txt", "r") as f:
+    for line in f:
+        words.append(line.strip())
+scram_words = []
+for word in words:
+    word = list(word)
+    rm.shuffle(word)
+    scram_words.append("".join(word))
+
+ramdom_index = rm.randint(0, len(words)-1)
+word = words[ramdom_index]
+scrambled = scram_words[ramdom_index]
+
+
+known = []
 flag = True
 while flag:
-    guess = input("what is your guess?")
+
+    guess = input(f"what is your guess for:\n{scrambled}\n").lower()
     
-    if guess == words[0]:
+    if guess == word:
         flag = False
     else:
-        print("sorry thats was wrong.")
+        print("\nsorry thats was wrong.")
         hint = input("Do you want a hint? (y/n):")
         if hint.lower() == "y":
-            find_letter = input("which letter do you want me to reveal? ")
+            find_letter = (input("which letter do you want me to reveal? ")).lower()
+            
             idx = word.index(find_letter)
+            known.append(find_letter)
+            print(f"you know the letters{known}")
+            
             print(f"the letter {find_letter.upper()} is in the {idx+1} place")
             graphic = []
             for i in range(len(word)):
-                if idx == i:
-                    graphic.append(find_letter.upper()+" ")
-                else:
-                    graphic.append("_ ")
+                graphic.append("_ ")
+            for idx, spot in enumerate(graphic):
+                for letter in known:
+                    if word.index(letter) == idx:
+                        graphic[idx] = letter.upper() + " "
+                    
             print("".join(graphic))
 print("congradulations you got the word!")
