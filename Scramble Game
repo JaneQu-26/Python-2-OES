@@ -1,5 +1,7 @@
 
 import random as rm
+
+
 words = []
 with open("scramble\words.txt", "r") as f:
     for line in f:
